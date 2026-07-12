@@ -1,26 +1,214 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #f8fafc;
+  --surface: rgba(255, 255, 255, 0.75);
+  --ink: #111827;
+  --muted: #6b7280;
+  --line: rgba(17, 24, 39, 0.08);
+
+  --accent: #2563eb;
+  --accent-soft: #dbeafe;
+
+  /* elevation tokens — matches the shadow values reused across
+     Hero / AboutUs / WhyChooseUs so new components can share them
+     instead of repeating long arbitrary box-shadow strings */
+  --shadow-soft: 0 20px 50px rgba(37, 99, 235, 0.08);
+  --shadow-lift: 0 30px 70px rgba(37, 99, 235, 0.16);
+  --shadow-blue-lg: 0 30px 70px rgba(37, 99, 235, 0.12);
+  --shadow-dark: 0 20px 60px rgba(0, 0, 0, 0.18);
+  --shadow-dark-hover: 0 35px 80px rgba(37, 99, 235, 0.25);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+
+  /* fallback stacks in case the next/font variables fail to load —
+     keeps Arabic + Latin text readable either way */
+  --font-display: var(--font-kufi, "Tajawal", "Segoe UI", sans-serif);
+  --font-body: var(--font-plex-arabic, "IBM Plex Sans Arabic", "Segoe UI", sans-serif);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  /* keeps the sticky pill header from covering the top of a section
+     when jumping to it via an in-page anchor link (#about, #services, ...) */
+  scroll-padding-top: 6rem;
+}
+
+section[id] {
+  scroll-margin-top: 6rem;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  background:
+    radial-gradient(circle at 15% 20%, rgba(37,99,235,.12), transparent 30%),
+    radial-gradient(circle at 85% 70%, rgba(14,165,233,.10), transparent 35%),
+    linear-gradient(180deg,#ffffff 0%,#f8fafc 45%,#eef4ff 100%);
+
+  color: var(--ink);
+  font-family: var(--font-body);
 }
+
+.font-display{
+  font-family: var(--font-display);
+}
+
+/* Smooth Images */
+
+img{
+  user-select:none;
+  -webkit-user-drag:none;
+  transition:
+    transform .6s cubic-bezier(.22,1,.36,1),
+    filter .4s ease,
+    opacity .4s ease;
+}
+
+/* Cards */
+
+.glass-card{
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  background: rgba(255,255,255,.55);
+  border:1px solid rgba(255,255,255,.35);
+  box-shadow:
+    0 10px 35px rgba(0,0,0,.08),
+    inset 0 1px rgba(255,255,255,.45);
+  transition: transform .4s cubic-bezier(.22,1,.36,1), box-shadow .4s ease;
+}
+
+/* Hover */
+
+.glass-card:hover{
+  transform:translateY(-10px);
+  box-shadow: var(--shadow-lift);
+}
+
+/* darker glass variant — used for the Hero image carousel, where
+   cards sit over photos rather than plain background */
+.glass-card-dark{
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  background: rgba(255,255,255,.7);
+  border:1px solid rgba(255,255,255,.3);
+  box-shadow: var(--shadow-dark);
+  transition: transform .5s cubic-bezier(.22,1,.36,1), box-shadow .5s ease;
+}
+
+.glass-card-dark:hover{
+  transform: translateY(-16px);
+  box-shadow: var(--shadow-dark-hover);
+}
+
+/* quick elevation utilities so arbitrary shadow values don't need
+   to be retyped in every component */
+.shadow-soft{ box-shadow: var(--shadow-soft); }
+.shadow-lift{ box-shadow: var(--shadow-lift); }
+.shadow-blue-lg{ box-shadow: var(--shadow-blue-lg); }
+
+/* Floating */
+
+@keyframes floating{
+
+  0%{
+    transform:translateY(0px);
+  }
+
+  50%{
+    transform:translateY(-10px);
+  }
+
+  100%{
+    transform:translateY(0px);
+  }
+
+}
+
+.float{
+  animation:floating 6s ease-in-out infinite;
+}
+
+/* Fade */
+
+@keyframes fadeUp{
+
+  from{
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+  }
+
+  to{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+  }
+
+}
+
+.fade-up{
+
+  animation:fadeUp .8s ease both;
+
+}
+
+/* Glow */
+
+.glow{
+
+  box-shadow:
+    0 0 35px rgba(37,99,235,.18);
+
+}
+
+a:focus-visible,
+button:focus-visible{
+
+  outline:2px solid var(--accent);
+
+  outline-offset:3px;
+
+}
+
+@media (prefers-reduced-motion:reduce){
+
+html{
+
+scroll-behavior:auto;
+
+}
+
+*{
+
+animation:none!important;
+
+transition:none!important;
+
+}
+
+}
+
+/*
+  Note: this rule only stops CSS animations/transitions (like .float,
+  .fade-up, and the img/glass-card transitions above). It does NOT
+  stop the framer-motion animations used in Hero/WhyChooseUs/AboutUs
+  (the orbit rotation, scroll-driven spread, entrance stagger, counters),
+  since those write inline styles from JS on every frame. To fully
+  respect reduced-motion there, gate the relevant useAnimationFrame /
+  animate() calls in those components behind framer-motion's
+  useReducedMotion() hook.
+*/
