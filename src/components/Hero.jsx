@@ -1,5 +1,3 @@
-"use client";
-
 import {
   motion,
   useAnimationFrame,
@@ -29,7 +27,7 @@ const images = [
   "/images/hero/image2.png",
   "/images/hero/image3.png",
   "/images/hero/image4.png",
-  "/images/hero/image5.jpg",
+  "/images/hero/image2.png",
   "/images/hero/image1.png",
   "/images/hero/image2.png",
   "/images/hero/image3.png",
@@ -73,12 +71,12 @@ export default function Hero() {
 
   return (
     <section id="top" className="relative h-[230vh] sm:h-[280vh] lg:h-[350vh]">
-      <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden px-4">
+<div className="sticky top-0 flex h-[85vh] sm:h-screen flex-col items-center justify-center overflow-hidden px-4 py-10">
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="mb-10 sm:mb-14 md:mb-16 text-center"
+          className="mb-6 sm:mb-14 md:mb-16 text-center"
         >
           <h1
             className="
@@ -123,8 +121,9 @@ export default function Hero() {
         </motion.div>
 
         {/* الكاروسيل */}
+    {/* الكاروسيل */}
         <div
-          className="relative flex h-[160px] sm:h-[240px] md:h-[340px] lg:h-[460px] w-full items-center justify-center"
+          className="relative flex h-[100px] sm:h-[240px] md:h-[340px] lg:h-[460px] w-full items-center justify-center"
           style={{ perspective: "1800px" }}
         >
           <div

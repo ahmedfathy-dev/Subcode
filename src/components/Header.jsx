@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaWhatsapp, FaLinkedinIn, FaBars, FaTimes } from "react-icons/fa";
@@ -10,13 +8,15 @@ const content = {
     nav: [
       { href: "#hero", label: "الرئيسية" },
       { href: "#about", label: "من نحن" },
+      { href: "#work", label: "أعمالنا" },
       { href: "#why-choose-us", label: "ليه تختارنا" },
     ],
   },
   en: {
     nav: [
-      { href: "#hero", label: "Home" },
+      { href: "#Hero", label: "hero" },
       { href: "#about", label: "About Us" },
+      { href: "#work", label: "Our Work" },
       { href: "#why-choose-us", label: "Why Choose Us" },
     ],
   },
@@ -61,7 +61,7 @@ export default function Header() {
         </div>
 
         {/* Logo */}
-        <a href="#hero" className="group relative z-10 flex items-center gap-2 ps-1">
+        <a href="#Hero" className="group relative z-10 flex items-center gap-2 ps-1">
           <div className="relative">
             <div className="absolute inset-0 -z-10 rounded-full bg-accent/30 blur-md opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             <img
@@ -103,7 +103,7 @@ export default function Header() {
               className="flex items-center gap-2 rounded-full border border-line/50 px-3 py-2 text-sm text-ink transition-all duration-300 hover:border-accent/40 hover:bg-accent-soft"
             >
               <img
-                src="/logo1.png"
+                src={language === "en" ? "/lang1.svg" : "/logo1.png"}
                 alt=""
                 className="h-5 w-5 rounded-full object-cover"
               />
@@ -141,7 +141,7 @@ export default function Header() {
 
           {/* WhatsApp */}
           <a
-            href="https://wa.me/201000000000"
+            href="https://wa.me/201068389295"
             target="_blank"
             rel="noopener noreferrer"
             className="hidden h-10 w-10 items-center justify-center rounded-full border border-line/50 transition-all duration-300 hover:-translate-y-0.5 hover:border-transparent hover:bg-green-500 hover:text-white hover:shadow-[0_10px_25px_rgba(34,197,94,.35)] sm:flex"
@@ -197,7 +197,7 @@ export default function Header() {
 
             <div className="mt-4 flex items-center gap-3 border-t border-line/60 pt-4">
               <a
-                href="https://wa.me/201000000000"
+                href="https://wa.me/201068389295"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-10 w-10 items-center justify-center rounded-full border border-line/50 transition-all duration-300 hover:bg-green-500 hover:text-white"

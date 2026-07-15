@@ -1,5 +1,5 @@
-<!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
+<!-- BEGIN:react-agent-rules -->
+# This is a Vite + React project
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
+Use Vite conventions and standard React SPA patterns. Do not assume Next.js App Router, `next/image`, `next/link`, or `next/font` APIs.
+<!-- END:react-agent-rules -->

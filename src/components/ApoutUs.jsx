@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
@@ -120,7 +118,7 @@ export default function AboutUs() {
   const isAr = language === "ar";
 
   return (
-    <section id="about" className="py-20 sm:py-28 lg:py-36">
+    <section id="about" className="py-10 sm:py-20 lg:py-16">
       <div className="mx-auto max-w-6xl px-6 lg:px-10">
         {/* Header */}
         <div

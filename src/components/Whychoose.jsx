@@ -1,7 +1,4 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   FaBolt,
   FaCode,
@@ -50,12 +47,6 @@ const content = {
         desc: "بتعرف هتدفع كام وعلى إيه بالظبط، من غير رسوم مخفية أو مفاجآت آخر الشهر.",
       },
     ],
-    stats: [
-      { value: 50, suffix: "+", label: "مشروع ناجح" },
-      { value: 5, suffix: "+", label: "سنين خبرة" },
-      { value: 98, suffix: "%", label: "رضا العملاء" },
-      { value: null, suffix: "", label: "دعم فني", display: "24/7" },
-    ],
   },
   en: {
     eyebrow: "Why Choose Us",
@@ -94,41 +85,8 @@ const content = {
         desc: "You know exactly what you're paying and for what, no hidden fees, no surprises.",
       },
     ],
-    stats: [
-      { value: 50, suffix: "+", label: "Successful Projects" },
-      { value: 5, suffix: "+", label: "Years Experience" },
-      { value: 98, suffix: "%", label: "Client Satisfaction" },
-      { value: null, suffix: "", label: "Support", display: "24/7" },
-    ],
   },
 };
-
-function Counter({ value, suffix }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!isInView) return;
-    const duration = 1200;
-    const start = performance.now();
-
-    function tick(now) {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.round(eased * value));
-      if (progress < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }, [isInView, value]);
-
-  return (
-    <span ref={ref}>
-      {count}
-      {suffix}
-    </span>
-  );
-}
 
 const containerVariants = {
   hidden: {},
@@ -168,7 +126,7 @@ export default function WhyChooseUs() {
         transition={{ duration: 0.5 }}
         className="mx-auto max-w-2xl text-center"
       >
-        <span className="inline-flex items-center rounded-full bg-accent-soft px-4 py-1.5 text-xs font-semibold tracking-wide text-accent">
+        <span className="inline-flex items-center rounded-full bg-accent-soft px-4 py-1.5 text-lg font-semibold tracking-wide">
           {t.eyebrow}
         </span>
         <h2 className="mt-5 font-display text-3xl font-extrabold text-ink sm:text-4xl md:text-5xl">
@@ -213,30 +171,6 @@ export default function WhyChooseUs() {
             </motion.div>
           );
         })}
-      </motion.div>
-
-      {/* Stats strip */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        className="mt-16 grid grid-cols-2 gap-6 rounded-3xl border border-line/60 bg-white/60 p-8 backdrop-blur-xl sm:grid-cols-4"
-      >
-        {t.stats.map((stat, i) => (
-          <div key={i} className="text-center">
-            <div className="font-display text-3xl font-black text-ink sm:text-4xl">
-              {stat.value !== null ? (
-                <Counter value={stat.value} suffix={stat.suffix} />
-              ) : (
-                stat.display
-              )}
-            </div>
-            <div className="mt-1 text-xs font-medium text-muted sm:text-sm">
-              {stat.label}
-            </div>
-          </div>
-        ))}
       </motion.div>
     </section>
   );
