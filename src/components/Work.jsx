@@ -9,7 +9,7 @@ const projects = [
     img: "/images/hero/image2.png",
     ar: {
       tag: "منصة تجارة إلكترونية",
-      title: "متجر Nova",
+      title: "Nova متجر",
       desc: "منصة بيع أونلاين بأداء عالي وتجربة دفع سلسة زادت التحويلات بشكل ملحوظ.",
     },
     en: {
@@ -79,7 +79,7 @@ const content = {
   },
 };
 
-function ProjectCard({ project, index, cta }) {
+function ProjectCard({ project, index, cta, language }) {
   const cardRef = useRef(null);
 
   // cursor-follow tilt — springed so it feels physical, not jittery
@@ -104,7 +104,89 @@ function ProjectCard({ project, index, cta }) {
     my.set(0.5);
   }
 
-  const isReversed = index % 2 === 1;
+  const isAr = language === "ar";
+  const isFirstOrThird = index % 2 === 0;
+
+  // Arabic: 1st/3rd image RIGHT (keep), 2nd/4th image LEFT (keep images left — only text on right)
+  // English: opposite of Arabic
+  const imageOnLeft = isAr ? !isFirstOrThird : isFirstOrThird;
+
+  const imageBlock = (
+    <div
+      className="relative w-full shrink-0 sm:w-2/5 lg:w-[30%]"
+      style={{ perspective: "1200px" }}
+    >
+      <motion.div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        className="group relative overflow-hidden rounded-[28px] border border-line/60 shadow-[0_20px_50px_rgba(15,23,42,.10)]"
+      >
+        <motion.div
+          initial={{ scaleX: 1 }}
+          whileInView={{ scaleX: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
+          style={{ originX: imageOnLeft ? 0 : 1 }}
+          className="absolute inset-0 z-10 bg-accent"
+        />
+
+        <img
+          src={project.img}
+          alt={project.title}
+          className="h-[240px] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06] sm:h-[290px] lg:h-[340px]"
+        />
+
+        <motion.div
+          className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          style={{
+            background: `radial-gradient(220px circle at ${glowX} ${glowY}, rgba(255,255,255,.28), transparent 70%)`,
+          }}
+        />
+
+        <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
+      </motion.div>
+    </div>
+  );
+
+  const textBlock = (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.55, delay: 0.25 }}
+      dir={isAr ? "rtl" : "ltr"}
+      className={`w-full max-w-md text-center lg:w-[55%] lg:max-w-none ${
+        imageOnLeft ? "lg:text-end" : "lg:text-start"
+      }`}
+    >
+      <span className="inline-flex items-center rounded-full bg-accent-soft px-3.5 py-1 text-xs font-semibold tracking-wide text-accent">
+        {project.tag}
+      </span>
+      <h3 className="mt-4 font-display text-2xl font-bold text-ink sm:text-3xl">
+        {project.title}
+      </h3>
+      <p
+        className={`mx-auto mt-3 text-sm leading-relaxed text-muted sm:text-base ${
+          imageOnLeft ? "lg:ml-auto lg:mr-0" : "lg:mr-auto lg:ml-0"
+        }`}
+      >
+        {project.desc}
+      </p>
+
+      <motion.a
+        href="#"
+        whileHover={{ gap: "0.75rem" }}
+        className={`mt-5 inline-flex items-center justify-center gap-2 text-sm font-semibold text-ink transition-colors duration-300 hover:text-accent ${
+          imageOnLeft ? "lg:justify-end" : "lg:justify-start"
+        }`}
+      >
+        {cta}
+        <FaArrowUpRightFromSquare size={12} />
+      </motion.a>
+    </motion.div>
+  );
 
   return (
     <motion.div
@@ -112,74 +194,20 @@ function ProjectCard({ project, index, cta }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-      className={`flex flex-col gap-4 sm:gap-6 lg:gap-10 ${
-        isReversed ? "lg:flex-row-reverse" : "lg:flex-row"
-      } items-center`}
+      dir="ltr"
+      className="flex w-full flex-col items-center gap-4 sm:gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-10"
     >
-      {/* Image — curtain reveal on scroll, tilt + glow on hover */}
-      <div className="relative w-full sm:w-2/5 lg:w-[30%]" style={{ perspective: "1200px" }}>
-        <motion.div
-          ref={cardRef}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-          style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-          className="group relative overflow-hidden rounded-[28px] border border-line/60 shadow-[0_20px_50px_rgba(15,23,42,.10)]"
-        >
-          {/* curtain panel that wipes away to reveal the image */}
-          <motion.div
-            initial={{ scaleX: 1 }}
-            whileInView={{ scaleX: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
-            style={{ originX: isReversed ? 0 : 1 }}
-            className="absolute inset-0 z-10 bg-accent"
-          />
-
-          <img
-            src={project.img}
-            alt={project.title}
-            className="h-[240px] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06] sm:h-[290px] lg:h-[340px]"
-          />
-
-          {/* cursor-follow highlight */}
-          <motion.div
-            className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-            style={{
-              background: `radial-gradient(220px circle at ${glowX} ${glowY}, rgba(255,255,255,.28), transparent 70%)`,
-            }}
-          />
-
-          <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
-        </motion.div>
-      </div>
-
-      {/* Text */}
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.55, delay: 0.25 }}
-        className="w-full text-center lg:w-[70%] lg:text-start"
-      >
-        <span className="inline-flex items-center rounded-full bg-accent-soft px-3.5 py-1 text-xs font-semibold tracking-wide text-accent">
-          {project.tag}
-        </span>
-        <h3 className="mt-4 font-display text-2xl font-bold text-ink sm:text-3xl">
-          {project.title}
-        </h3>
-        <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted lg:mx-0 sm:text-base">
-          {project.desc}
-        </p>
-
-        <motion.a
-          href="#"
-          whileHover={{ gap: "0.75rem" }}
-          className="mt-5 inline-flex items-center justify-center gap-2 text-sm font-semibold text-ink transition-colors duration-300 hover:text-accent lg:justify-start"
-        >
-          {cta}
-          <FaArrowUpRightFromSquare size={12} />
-        </motion.a>
-      </motion.div>
+      {imageOnLeft ? (
+        <>
+          {imageBlock}
+          {textBlock}
+        </>
+      ) : (
+        <>
+          {textBlock}
+          {imageBlock}
+        </>
+      )}
     </motion.div>
   );
 }
@@ -226,6 +254,7 @@ export default function Work() {
             project={project}
             index={i}
             cta={t.cta}
+            language={language}
           />
         ))}
       </div>

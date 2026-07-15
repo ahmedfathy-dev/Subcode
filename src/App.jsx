@@ -1,5 +1,6 @@
 import Header from "./components/Header";
 import Hero from "./components/Hero";
+import ProblemSolution from "./components/ProblemSolution";
 import WhyChoose from "./components/Whychoose";
 import Work from "./components/Work";
 import ApoutUs from "./components/ApoutUs";
@@ -10,6 +11,7 @@ export default function App() {
     <>
       <Header />
       <Hero />
+      <ProblemSolution />
       <WhyChoose />
       <Work />
       <ApoutUs />

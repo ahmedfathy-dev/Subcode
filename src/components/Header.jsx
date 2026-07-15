@@ -7,17 +7,19 @@ const content = {
   ar: {
     nav: [
       { href: "#hero", label: "الرئيسية" },
-      { href: "#about", label: "من نحن" },
+      { href: "#problem-solution", label: "المشكلة والحل" },
       { href: "#work", label: "أعمالنا" },
       { href: "#why-choose-us", label: "ليه تختارنا" },
+      { href: "#about", label: "من نحن" },
     ],
   },
   en: {
     nav: [
-      { href: "#Hero", label: "hero" },
-      { href: "#about", label: "About Us" },
+      { href: "#hero", label: "Home" },
+      { href: "#problem-solution", label: "Problem & Solution" },
       { href: "#work", label: "Our Work" },
       { href: "#why-choose-us", label: "Why Choose Us" },
+      { href: "#about", label: "About Us" },
     ],
   },
 };
@@ -61,11 +63,11 @@ export default function Header() {
         </div>
 
         {/* Logo */}
-        <a href="#Hero" className="group relative z-10 flex items-center gap-2 ps-1">
+        <a href="#hero" className="group relative z-10 flex items-center gap-2 ps-1">
           <div className="relative">
             <div className="absolute inset-0 -z-10 rounded-full bg-accent/30 blur-md opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             <img
-              src="/logo2.jpg"
+              src="/images/hero/logo8.jpeg"
               alt="Logo"
               className="h-10 w-10 rounded-full object-cover ring-2 ring-white transition-all duration-300 group-hover:ring-accent/40 group-hover:scale-105"
             />

@@ -64,9 +64,9 @@ export default function Footer() {
             transition={{ duration: 0.5 }}
             className="sm:col-span-2 lg:col-span-1"
           >
-            <a href="#top" className="inline-flex items-center">
+            <a href="#hero" className="inline-flex items-center">
               <img
-                src="/logo2.jpg"
+                src="/images/hero/logo8.jpeg"
                 alt="Logo"
                 className="h-11 w-11 rounded-full object-cover"
               />

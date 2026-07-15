@@ -11,14 +11,18 @@ import { useState, useEffect } from "react";
 
 const content = {
   ar: {
-    title: "حوّل فكرتك إلى نظام ناجح",
+    title: "متجرك الإلكتروني الاحترافي جاهز للبيع خلال أيام",
     description:
-      "نصمم حلولًا رقمية حديثة تجمع بين الأداء، السرعة، وتجربة مستخدم استثنائية تساعد مشروعسواء كنت شركة ناشئة، مؤسسة، أو رائد أعمال، نحن جاهزون لتطوير حلول برمجية مخصصة تناسب احتياجاتك وتساعدك على النمو ",
+      "نبني متاجر مخصصة للبراندات والتجار الجادين في السعودية — مع ربط كامل لأنظمة الدفع والشحن.",
+    primaryCta: "اطلب عرض سعر مجاني",
+    startCta: "ابدأ الآن",
   },
   en: {
-    title: "Turn your idea into a successful system",
+    title: "Your professional online store, ready to sell in days",
     description:
-      "Whether you're a startup, enterprise, or entrepreneur, we're ready to build custom software solutions tailored to your needs and help you grow.",
+      "We build custom stores for brands and serious merchants in Saudi Arabia — with full payment and shipping integration.",
+    primaryCta: "Request a free quote",
+    startCta: "Start Now",
   },
 };
 
@@ -70,7 +74,7 @@ export default function Hero() {
   const staggerSpan = 0.55;
 
   return (
-    <section id="top" className="relative h-[230vh] sm:h-[280vh] lg:h-[350vh]">
+    <section id="hero" className="relative h-[230vh] sm:h-[280vh] lg:h-[350vh]">
 <div className="sticky top-0 flex h-[85vh] sm:h-screen flex-col items-center justify-center overflow-hidden px-4 py-10">
         <motion.div
           initial={{ opacity: 0, y: 60 }}
@@ -118,6 +122,30 @@ export default function Hero() {
           >
             {t.description}
           </p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="mt-5 flex flex-wrap items-center justify-center gap-3 sm:mt-6 md:mt-7"
+          >
+            <a
+              href="https://wa.me/201068389295?text=مرحباً، أريد عرض سعر مجاني لمتجر إلكتروني"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-white shadow-[0_10px_25px_rgba(37,99,235,.28)] transition-all duration-300 hover:-translate-y-0.5 hover:opacity-95 hover:shadow-[0_14px_30px_rgba(37,99,235,.35)] sm:px-7 sm:py-3 sm:text-base"
+            >
+              {t.primaryCta}
+            </a>
+            <a
+              href="https://wa.me/201068389295"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-full border border-accent bg-white px-6 py-2.5 text-sm font-semibold text-accent transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent-soft sm:px-7 sm:py-3 sm:text-base"
+            >
+              {t.startCta}
+            </a>
+          </motion.div>
         </motion.div>
 
         {/* الكاروسيل */}
